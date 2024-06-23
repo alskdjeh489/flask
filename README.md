@@ -1,4 +1,6 @@
 # **RoidRage Fitness Shop**
+**ჩავამატე რეგისტრაცია და cookies (როგორც ფუნქცია, რომელიც ლექციაზე არ განვიხილეთ).**
+
 This project is a Flask web application that serves as an online shop for Lion Labs Fitness products. It includes functionality for users to browse products, log in, log out, and view products by category.
 
 ### **Features**
@@ -12,6 +14,11 @@ Description: The home page provides an introduction to the RoidRage Fitness shop
 Template: index.html
 
 ## **User Authentication**
+
+### **Register**
+URL: /register
+
+Description: Handles user registration. Displays the registration form on GET and processes the registration on POST.
 
 ### **Login**
 
@@ -67,3 +74,8 @@ The products table schema includes the following columns - id: Primary key; name
 ### **Database Population**
 
 A script (database.py) is used to scrape product data from the Lion Labs Fitness website and populate the products table in the SQLite database. The script uses the requests library to fetch web pages and BeautifulSoup to parse the HTML content.
+
+## **Set Cookie**
+URL: /setcookie
+
+Description: Sets a cookie in the user's browser.
