@@ -1,5 +1,5 @@
 # **RoidRage Fitness Shop**
-**ჩავამატე რეგისტრაცია და cookies (როგორც ფუნქცია, რომელიც ლექციაზე არ განვიხილეთ).**
+**ჩავამატე რეგისტრაცია და make_response (როგორც ფუნქცია, რომელიც ლექციაზე არ განვიხილეთ).**
 
 This project is a Flask web application that serves as an online shop for Lion Labs Fitness products. It includes functionality for users to browse products, log in, log out, and view products by category.
 
