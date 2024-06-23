@@ -1,5 +1,5 @@
 # http://btu.pythonanywhere.com
-# pythonanywhere-ზე ცვლელები (რეგისტრაცია და cookies) ასახული არაა, ვეღარ ჩავამატე.
+# pythonanywhere-ზე ცვლელები (რეგისტრაცია და make_response) ასახული არაა, ვეღარ ჩავამატე.
 
 # Required libraries
 from flask import Flask, render_template, request, redirect, session, flash, make_response
