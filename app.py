@@ -123,7 +123,7 @@ def not_found(e):
     return render_template("404.html"), 404
 
 
-# Route to set a cookie
+# Cookie setter route
 @app.route('/setcookie')
 def set_cookie():
     resp = make_response("Cookie is set")
@@ -131,7 +131,7 @@ def set_cookie():
     return resp
 
 
-# Route to get a cookie
+# Cookie getter route
 @app.route('/getcookie')
 def get_cookie():
     cookie_value = request.cookies.get('example_cookie')
@@ -141,3 +141,64 @@ def get_cookie():
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+#---------------------------
+
+
+# Parsing 
+import requests
+from bs4 import BeautifulSoup
+import sqlite3
+from urllib.parse import urljoin  # Using urljoin to combine the base URL with the relative URL to form an absolute URL
+
+conn = sqlite3.connect('products.db')
+cursor = conn.cursor()
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS products (
+                    id INTEGER PRIMARY KEY,
+                    name TEXT,
+                    category TEXT,
+                    price TEXT,
+                    image TEXT,
+                    link TEXT
+                )''')
+conn.commit()
+
+
+base_url = 'https://lionlabs.fit/https://lionlabs.fit/'
+
+categories = [
+    'testosterones',
+    'trenbolones',
+    'nandrolones',
+    'post-cycle-therapy',
+    'miscellaneous',
+    'mixes',
+    'orals',
+    'human-growth-hormone'
+]
+
+for category in categories:
+    url = f'https://lionlabs.fit/catalog/{category}'
+    response = requests.get(url)
+    content = response.text
+
+    soup = BeautifulSoup(content, 'html.parser')
+    listing = soup.find('div', class_='products__list')
+    products = listing.find_all('div', class_='product')
+
+    for product in products:
+        src = product.img.get('src')  # Relative URL
+        image = urljoin(base_url, src)  # Absolute URL
+        href = product.find('a', class_='product__name').get('href')
+        link = urljoin(base_url, href)
+        name = product.find('a', class_='product__name').text
+        desc = product.find('div', class_='product__category').text
+        price = product.find('span').text
+
+        cursor.execute('''INSERT INTO products (name, category, price, image, link)
+                          VALUES (?, ?, ?, ?, ?)''', (name, desc, price, image, link))
+        conn.commit()
+
+conn.close()
